@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - One
+  - Two
+  - Three
+  - Four
+  - Five
+  - Six
+  - Seven
+  - Eight
+  - Nine
+  - Ten
+  - Eleven
+  - Twelve
+  - Thirteen
+  - Fourteen
+  - Fifteen
+  - Sixteen
+  - Seventeen
+  - Eighteen
+  - Nineteen
+  - Twenty
+  - TwentyOne
+  - TwentyTwo
+  - TwentyThree
+  - TwentyFour
+  - TwentyFive
+  - TwentySix
+  - TwentySeven
+  - TwentyEight
+  - TwentyNine
+  - Thirty
+  - ThirtyOne
+  - ThirtyTwo
+  - ThirtyThree
+  - ThirtyFour
+  - ThirtyFive
+  - ThirtySix
+  - ThirtySeven
+  - ThirtyEight
+  - ThirtyNine
+  - Fourty
+  - FourtyOne
+  - FourtyTwo
+  - FourtyThree
+  - FourtyFour
+  - FourtyFive
+  - FourtySix
+  - FourtySeven
+  - FourtyEight
+  - FourtyNine
+  - Fifty
+  - FiftyOne
+  - FiftyTwo
+  - FiftyThree
+  - FiftyFour
+  - FiftyFive
+  - FiftySix
+  - FiftySeven
+  - FiftyEight
+  - FiftyNine
+  - Sixty
+  - SixtyOne
+  - SixtyTwo
+  - SixtyThree
+  - SixtyFour
+  - SixtyFive
+  - SixtySix
+  - SixtySeven
+  - SixtyEight
+  - SixtyNine
+  - Seventy
+  - SeventyOne
+  - SeventyTwo
+  - SeventyThree
+  - SeventyFour
+  - SeventyFive
+  - SeventySix
+  - SeventySeven
+  - SeventyEight
+  - SeventyNine
+  - Eighty
+  - EightyOne
+  - EightyTwo
+  - EightyThree
+  - EightyFour
+  - EightyFive
+  - EightySix
+  - EightySeven
+  - EightyEight
+  - EightyNine
+  - Ninety
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
