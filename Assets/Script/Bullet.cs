@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
 	public Rigidbody2D rb;
 	public float speed;
-	public float destroyTime;
+	
 	
 	void Start()
 	{
@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
    void OnTriggerEnter2D(Collider2D col)
    {
 	   Destroy(col.gameObject);
-	   Destroy(gameObject, destroyTime);
+	   Destroy(gameObject);
 	   
 	   
    }
