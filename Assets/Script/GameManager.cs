@@ -6,6 +6,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+	
 	public static GameManager instance;
 	public GameObject[] pans;
 	public Button[] buttons;
@@ -30,16 +31,19 @@ public class GameManager : MonoBehaviour
 	public Transform bulletPos2;
 	public int rewardCoins;
 	public int dataPoints;
-	public SpawnerA mySpawnerA;
 	public Transform bulletPosition;
 	public GameObject[] myBallPrefabs;
 	public float sortDuration;
 	public Transform[] sortPoint;
-	public bool[] ballTypeExist;
+	public Button randomButton;
 	private GameData saveData = new GameData();
 	public bool[] isFull;
 	public Button[] buttArray;
 	private List<int> bulletList;
+	public int boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix, boxSeven, boxEight, boxNine, boxTen;
+	private List<Balls> finalList;
+	public NationalChart nationalChart;
+	private List<Balls> lastList;
 	
 	
 	void Awake(){
@@ -48,6 +52,11 @@ public class GameManager : MonoBehaviour
 	}
     void Start()
     {
+		randomButton.gameObject.SetActive(false);
+		
+		finalList = new List<Balls>();
+		lastList = new List<Balls>();
+		
 		bulletList = new List<int>();
 		bulletList.Add(99);
 		bulletList.Add(99);
@@ -69,6 +78,18 @@ public class GameManager : MonoBehaviour
 		{
 			butt.gameObject.SetActive(false);
 		}
+		boxOne = 0;
+		boxTwo = 0;
+		boxThree = 0;
+		boxFour = 0;
+		boxFive = 0;
+		boxSix = 0;
+		boxSeven = 0;
+		boxEight = 0;
+		boxNine = 0;
+		boxTen = 0;
+		sortIndex = 0;
+		
 		
     }
 
@@ -76,8 +97,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 		pointText.text = "POINT:" + saveData.points.ToString();
-		if(isReloading1)
-		{
+		if(isReloading1){
+
 			ReloadOne();
 		}
 		if(isReloading2)
@@ -129,7 +150,7 @@ public class GameManager : MonoBehaviour
 		
 	}
 	
-	void CheckTotalNumbers()
+	private void CheckTotalNumbers()
 	{
 		if(spawnIndex == spawnPos.Length)
 		{
@@ -146,21 +167,23 @@ public class GameManager : MonoBehaviour
 	
 	public void Draw()
 	{
+		
 		DrawGame();
 	
 	}
 	
 	
-	void DrawGame()
+	private void DrawGame()
 	{
 		if(saveData.points > 1)
 		{
+			
 			isReloading1 = true;
 			pans[0].SetActive(false);
 			platforms.SetActive(false);
 			saveData.AddPoint(-dataPoints);
 			SaveSystems.controls.SaveGame(saveData);
-			StartCoroutine(BallSorter());
+			StartCoroutine(SortAllMethod());
 			bulletList.Clear();
 			
 		}else{
@@ -212,25 +235,21 @@ public class GameManager : MonoBehaviour
 		
 	}
 	public void Replay()
-	{
-		if(mySpawnerA.ballList.Count > 0)
-		{
-			mySpawnerA.ballList.Clear();
-			Array.Clear(ballTypeExist, 0, ballTypeExist.Length);
-			Array.Clear(isFull, 0, isFull.Length);
-			sortIndex = 0;
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			bulletList.Add(99);
-			ActivateButton();
-		}
+	{	
+		
+		Array.Clear(isFull, 0, isFull.Length);
+		sortIndex = 0;
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		bulletList.Add(99);
+		ActivateButton();
 		
 		Instantiate(bulletPrefab2, bulletPosition.position, Quaternion.identity);
 		
@@ -238,6 +257,9 @@ public class GameManager : MonoBehaviour
 		isReloading2 = true;
 		spawnIndex = 0;
 		platforms.SetActive(true);
+		finalList.Clear();
+		Array.Clear(nationalChart.indexAdded, 0, nationalChart.indexAdded.Length);
+		randomButton.gameObject.SetActive(false);
 		
 	}
 	void CheckDuplicate(int index, int val)
@@ -302,27 +324,21 @@ public class GameManager : MonoBehaviour
 	{
 		saveData.ResetPoint();
 	}
-	
-	IEnumerator BallSorter()
+	public void GenerateRandom()
 	{
+		randomButton.gameObject.SetActive(false);
+		int totalLoopTime = 10;
 		
-		yield return new WaitForSeconds(sortDuration);
-		
-		
-		for(int i = 0; i < mySpawnerA.ballList.Count; i++)
+		for(int i = 0; i < totalLoopTime; i++)
 		{
-			for(int j = i + 1 ; j < mySpawnerA.ballList.Count; j++)
-			{
-				if(mySpawnerA.ballList[j].ballType == mySpawnerA.ballList[i].ballType && ballTypeExist[mySpawnerA.ballList[i].ballType] == false )
-				{
-					Instantiate( myBallPrefabs[mySpawnerA.ballList[i].ballType], sortPoint[sortIndex].position, Quaternion.identity);
-					ballTypeExist[mySpawnerA.ballList[i].ballType] = true;
-					sortIndex ++;
-				}
-				
-			}
+			int randInt = UnityEngine.Random.Range(2, 89);
+			Instantiate(myBallPrefabs[randInt], sortPoint[sortIndex].position, Quaternion.identity);
+			sortIndex++;
 		}
+		
 	}
+	
+	
 	
 	public void DeleteOne()
 	{
@@ -335,6 +351,7 @@ public class GameManager : MonoBehaviour
 		buttArray[0].gameObject.SetActive(false);
 		spawnIndex--;
 		ShowButtonsPan();
+
 		
 	}
 	public void DeleteTwo()
@@ -400,6 +417,7 @@ public class GameManager : MonoBehaviour
 		buttArray[5].gameObject.SetActive(false);
 		spawnIndex--;
 		ShowButtonsPan();
+		
 	}
 	public void DeleteSeven()
 	{
@@ -412,6 +430,7 @@ public class GameManager : MonoBehaviour
 		buttArray[6].gameObject.SetActive(false);
 		spawnIndex--;
 		ShowButtonsPan();
+		
 	
 	}
 	public void DeleteEight()
@@ -425,6 +444,7 @@ public class GameManager : MonoBehaviour
 		buttArray[7].gameObject.SetActive(false);
 		spawnIndex--;
 		ShowButtonsPan();
+		
 		
 	}
 	public void DeleteNine()
@@ -441,8 +461,7 @@ public class GameManager : MonoBehaviour
 		
 		
 	}
-	public void DeleteTen()
-	{
+	public void DeleteTen(){
 		
 		Instantiate(bulletPrefab, bulletPos[9].position, Quaternion.identity);
 		isFull[9] = false;
@@ -452,9 +471,958 @@ public class GameManager : MonoBehaviour
 		buttArray[9].gameObject.SetActive(false);
 		spawnIndex--;
 		ShowButtonsPan();
+		boxTen = 0;
+		
+	}
+	void FirstMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].secondBox == boxTwo && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].thirdBox == boxThree && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].fourthBox == boxFour && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].fifthBox == boxFive && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodFive()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].sixthBox == boxSix && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodSix()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodSeven()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodEight()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMethodNine()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].firstBox == boxOne && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void SecondMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].thirdBox == boxThree && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].fourthBox == boxFour && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].fifthBox == boxFive && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].sixthBox == boxSix && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodFive()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodSix()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodSeven()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void SecondMethodEight()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
 	}
 	
 	
+	void ThirdMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].fourthBox == boxFour && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
 		
+	}
+	void ThirdMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].fifthBox == boxFive && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void ThirdMethodThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].sixthBox == boxFive && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}	
+			}
+			
+		}
+	}
+	void ThirdMethodFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void ThirdMethodFive()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void ThirdMethodSix()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void ThirdMethodSeven()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void FourthMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].fifthBox == boxFive && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FourthMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].sixthBox == boxSix && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FourthMethodThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FourthMethodFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FourthMethodFive()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FourthMethodSix()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}
+	}
+	void FifthMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fifthBox == boxFive && nationalChart.ballList[i].sixthBox == boxSix && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FifthMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fifthBox == boxFive && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+	}
+	void FifthMethodThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fifthBox == boxFive && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+	}
+	void FifthMethodFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fifthBox == boxFive && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+	}
+	void FifthMethodFive()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fifthBox == boxFive && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+	}
+	void FirstMachineOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].sixthBox == boxSix && nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMachineTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].sixthBox == boxSix && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+	}
+	void FirstMachineThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].sixthBox == boxSix && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FirstMachineFour()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].sixthBox == boxSix && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
 	
-}	
+	void SecondMachineOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.ballList[i].eightBox == boxEight && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void SecondMachineTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void SecondMachineThree()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].seventhBox == boxSeven && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void ThirdMachineOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].eightBox == boxEight && nationalChart.ballList[i].ninethBox == boxNine && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void ThirdMachineTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].eightBox == boxEight && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void FourthMachineOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].ninethBox == boxNine && nationalChart.ballList[i].tenthBox == boxTen && nationalChart.indexAdded[i] == false )
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}	
+		
+	}
+	void SecondRandomMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].firstBox == boxThree && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}	
+	}
+	void SecondRandomMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].secondBox == boxTwo && nationalChart.ballList[i].thirdBox == boxOne && nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	void ThirdRandomMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].secondBox == boxFour &&  nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+		}	
+	}
+	void ThirdRandomMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].thirdBox == boxThree && nationalChart.ballList[i].fourthBox == boxTwo &&  nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	void FourthRandomMethodOne()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].thirdBox == boxFive &&  nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+			}
+			
+		}
+		
+	}
+	void FourthRandomMethodTwo()
+	{
+		for(int i = 0; i < nationalChart.ballList.Count; i++)
+		{
+			int nextIndex = i+1;
+			if(nationalChart.ballList[i].fourthBox == boxFour && nationalChart.ballList[i].fifthBox == boxThree &&  nationalChart.indexAdded[i] == false)
+			{
+				if(nextIndex < nationalChart.ballList.Count)
+				{
+					finalList.Add(nationalChart.ballList[nextIndex]);
+					nationalChart.indexAdded[i] = true;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	void GetSuccessNumbers()
+	{
+		
+		if(finalList.Count > 0 )
+		{
+			
+			for(int i = 0; i < finalList.Count; i++)
+			{
+				if(i == 6)
+				{
+					break;
+				}
+				
+				
+				Instantiate(myBallPrefabs[finalList[i].firstBox], sortPoint[sortIndex].position, Quaternion.identity);
+				sortIndex++;
+				Instantiate(myBallPrefabs[finalList[i].secondBox], sortPoint[sortIndex].position, Quaternion.identity);
+				sortIndex++;
+				Instantiate(myBallPrefabs[finalList[i].thirdBox], sortPoint[sortIndex].position, Quaternion.identity);
+				sortIndex++;
+				Instantiate(myBallPrefabs[finalList[i].fourthBox], sortPoint[sortIndex].position, Quaternion.identity);
+				sortIndex++;
+				Instantiate(myBallPrefabs[finalList[i].fifthBox], sortPoint[sortIndex].position, Quaternion.identity);
+				sortIndex++;
+					
+			}
+		}else{
+			
+			randomButton.gameObject.SetActive(true);
+			
+		}
+		
+	}
+	
+	
+	IEnumerator SortAllMethod()
+	{
+		yield return new WaitForSeconds(sortDuration);
+		
+		SecondRandomMethodOne();
+		SecondRandomMethodTwo();
+		ThirdRandomMethodOne();
+		ThirdRandomMethodTwo();
+		FourthRandomMethodOne();
+		FourthRandomMethodTwo();
+		FirstMethodOne();
+		FirstMethodTwo();
+		FirstMethodThree();
+		FirstMethodFour();
+		//FirstMethodFive();
+		//FirstMethodSix();
+		//FirstMethodSeven();
+		//FirstMethodEight();
+		//FirstMethodNine();
+		SecondMethodOne();
+		SecondMethodTwo();
+		SecondMethodThree();
+		SecondMethodFour();
+		SecondMethodFive();
+		SecondMethodSix();
+		SecondMethodSeven();
+		SecondMethodEight();
+		ThirdMethodOne();
+		ThirdMethodTwo();
+		ThirdMethodThree();
+		ThirdMethodFour();
+		//ThirdMethodFive();
+		//ThirdMethodSix();
+		//ThirdMethodSeven();
+		FourthMethodOne();
+		FourthMethodTwo();
+		FourthMethodThree();
+		FourthMethodFour();
+		FourthMethodFive();
+		FourthMethodSix();
+		FifthMethodOne();
+		FifthMethodTwo();
+		FifthMethodThree();
+		FifthMethodFour();
+		FifthMethodFive();
+		FirstMachineOne();
+		FirstMachineTwo();
+		FirstMachineThree();
+		FirstMachineFour();
+		SecondMachineOne();
+		SecondMachineTwo();
+		SecondMachineThree();
+		ThirdMachineOne();
+		ThirdMachineTwo();
+		FourthMachineOne();
+		
+		GetSuccessNumbers();
+		
+	}
+
+	
+}

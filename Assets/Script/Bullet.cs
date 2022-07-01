@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 	
 	void Start()
 	{
-		rb.velocity = transform.right * speed;
+		rb.velocity = transform.up * -speed;
 	}
    void OnTriggerEnter2D(Collider2D col)
    {
