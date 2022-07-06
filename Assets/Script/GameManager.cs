@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 	private List<Balls> finalList;
 	public NationalChart nationalChart;
 	private List<Balls> lastList;
-	
+	public GameObject forecastLabel;
 	
 	void Awake(){
 		instance = this;
@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
 	}
     void Start()
     {
+		forecastLabel.SetActive(false);
+		
 		randomButton.gameObject.SetActive(false);
 		
 		finalList = new List<Balls>();
@@ -181,6 +183,7 @@ public class GameManager : MonoBehaviour
 			isReloading1 = true;
 			pans[0].SetActive(false);
 			platforms.SetActive(false);
+			forecastLabel.SetActive(true);
 			saveData.AddPoint(-dataPoints);
 			SaveSystems.controls.SaveGame(saveData);
 			StartCoroutine(SortAllMethod());
@@ -236,7 +239,7 @@ public class GameManager : MonoBehaviour
 	}
 	public void Replay()
 	{	
-		
+		forecastLabel.SetActive(false);
 		Array.Clear(isFull, 0, isFull.Length);
 		sortIndex = 0;
 		bulletList.Add(99);
