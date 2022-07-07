@@ -9,289 +9,289 @@ public class BoxSeven : MonoBehaviour
 		switch(col.gameObject.tag)
 		{
 			case "One":
-			GameManager.instance.boxSeven = 1;
+			GameManager.instance.boxSeven = 2;
 			
 			break;
 			case "Two":
-			GameManager.instance.boxSeven = 2;
-			break;
-			case "Three":
 			GameManager.instance.boxSeven = 3;
 			break;
-			case "Four":
+			case "Three":
 			GameManager.instance.boxSeven = 4;
+			break;
+			case "Four":
+			GameManager.instance.boxSeven = 5;
 			
 			break;
 			case "Five":
 			
-			GameManager.instance.boxSeven = 5;
+			GameManager.instance.boxSeven = 6;
 
 			break;
 			case "Six":
-			GameManager.instance.boxSeven = 6;
-			break;
-			case "Seven":
 			GameManager.instance.boxSeven = 7;
 			break;
-			case "Eight":
+			case "Seven":
 			GameManager.instance.boxSeven = 8;
 			break;
-			case "Nine":
+			case "Eight":
 			GameManager.instance.boxSeven = 9;
 			break;
-			case "Ten":
+			case "Nine":
 			GameManager.instance.boxSeven = 10;
 			break;
-			case "Eleven":
+			case "Ten":
 			GameManager.instance.boxSeven = 11;
 			break;
-			case "Twelve":
+			case "Eleven":
 			GameManager.instance.boxSeven = 12;
 			break;
-			case "Thirteen":
+			case "Twelve":
 			GameManager.instance.boxSeven = 13;
+			break;
+			case "Thirteen":
+			GameManager.instance.boxSeven = 14;
 
 			break;
 			case "Fourteen":
-			GameManager.instance.boxSeven = 14;
-			break;
-			case "Fifteen":
 			GameManager.instance.boxSeven = 15;
 			break;
-			case "Sixteen":
+			case "Fifteen":
 			GameManager.instance.boxSeven = 16;
 			break;
-			case "Seventeen":
+			case "Sixteen":
 			GameManager.instance.boxSeven = 17;
 			break;
-			case "Eighteen":
+			case "Seventeen":
 			GameManager.instance.boxSeven = 18;
 			break;
-			case "Nineteen":
+			case "Eighteen":
 			GameManager.instance.boxSeven = 19;
 			break;
-			case "Twenty":
+			case "Nineteen":
 			GameManager.instance.boxSeven = 20;
 			break;
-			case "TwentyOne":
+			case "Twenty":
 			GameManager.instance.boxSeven = 21;
 			break;
-			case "TwentyTwo":
+			case "TwentyOne":
 			GameManager.instance.boxSeven = 22;
 			break;
-			case "TwentyThree":
+			case "TwentyTwo":
 			GameManager.instance.boxSeven = 23;
 			break;
-			case "TwentyFour":
+			case "TwentyThree":
 			GameManager.instance.boxSeven = 24;
 			break;
-			case "TwentyFive":
+			case "TwentyFour":
 			GameManager.instance.boxSeven = 25;
 			break;
-			case "TwentySix":
+			case "TwentyFive":
 			GameManager.instance.boxSeven = 26;
+			break;
+			case "TwentySix":
+			GameManager.instance.boxSeven = 27;
 			
 			break;
 			case "TwentySeven":
-			GameManager.instance.boxSeven = 27;
-			break;
-			case "TwentyEight":
 			GameManager.instance.boxSeven = 28;
 			break;
-			case "TwentyNine":
+			case "TwentyEight":
 			GameManager.instance.boxSeven = 29;
 			break;
-			case "Thirty":
+			case "TwentyNine":
 			GameManager.instance.boxSeven = 30;
 			break;
-			case "ThirtyOne":
+			case "Thirty":
 			GameManager.instance.boxSeven = 31;
 			break;
-			case "ThirtyTwo":
+			case "ThirtyOne":
 			GameManager.instance.boxSeven = 32;
 			break;
-			case "ThirtyThree":
+			case "ThirtyTwo":
 			GameManager.instance.boxSeven = 33;
 			break;
-			case "ThirtyFour":
+			case "ThirtyThree":
 			GameManager.instance.boxSeven = 34;
 			break;
-			case "ThirtyFive":
+			case "ThirtyFour":
 			GameManager.instance.boxSeven = 35;
 			break;
-			case "ThirtySix":
+			case "ThirtyFive":
 			GameManager.instance.boxSeven = 36;
 			break;
-			case "ThirtySeven":
+			case "ThirtySix":
 			GameManager.instance.boxSeven = 37;
 			break;
-			case "ThirtyEight":
+			case "ThirtySeven":
 			GameManager.instance.boxSeven = 38;
 			break;
-			case "ThirtyNine":
+			case "ThirtyEight":
 			GameManager.instance.boxSeven = 39;
+			break;
+			case "ThirtyNine":
+			GameManager.instance.boxSeven = 40;
 
 			break;
 			case "Fourty":
-			GameManager.instance.boxSeven = 40;
-			break;
-			case "FourtyOne":
 			GameManager.instance.boxSeven = 41;
 			break;
-			case "FourtyTwo":
+			case "FourtyOne":
 			GameManager.instance.boxSeven = 42;
 			break;
-			case "FourtyThree":
+			case "FourtyTwo":
 			GameManager.instance.boxSeven = 43;
 			break;
-			case "FourtyFour":
+			case "FourtyThree":
 			GameManager.instance.boxSeven = 44;
 			break;
-			case "FourtyFive":
+			case "FourtyFour":
 			GameManager.instance.boxSeven = 45;
 			break;
-			case "FourtySix":
+			case "FourtyFive":
 			GameManager.instance.boxSeven = 46;
 			break;
-			case "FourtySeven":
+			case "FourtySix":
 			GameManager.instance.boxSeven = 47;
 			break;
-			case "FourtyEight":
+			case "FourtySeven":
 			GameManager.instance.boxSeven = 48;
 			break;
-			case "FourtyNine":
+			case "FourtyEight":
 			GameManager.instance.boxSeven = 49;
+			break;
+			case "FourtyNine":
+			GameManager.instance.boxSeven = 50;
 			
 			break;
 			case "Fifty":
-			GameManager.instance.boxSeven = 50;
+			GameManager.instance.boxSeven = 51;
 			break;
 			case "FiftyOne":
-			GameManager.instance.boxSeven = 51;
+			GameManager.instance.boxSeven = 52;
 		
 			break;
 			case "FiftyTwo":
-			GameManager.instance.boxSeven = 52;
-			break;
-			case "FiftyThree":
 			GameManager.instance.boxSeven = 53;
 			break;
-			case "FiftyFour":
+			case "FiftyThree":
 			GameManager.instance.boxSeven = 54;
+			break;
+			case "FiftyFour":
+			GameManager.instance.boxSeven = 55;
 			break;
 			
 			case "FiftyFive":
-			GameManager.instance.boxSeven = 55;
+			GameManager.instance.boxSeven = 56;
 			
 			break;
 			case "FiftySix":
-			GameManager.instance.boxSeven = 56;
-			break;
-			case "FiftySeven":
 			GameManager.instance.boxSeven = 57;
 			break;
-			case "FiftyEight":
+			case "FiftySeven":
 			GameManager.instance.boxSeven = 58;
 			break;
-			case "FiftyNine":
+			case "FiftyEight":
 			GameManager.instance.boxSeven = 59;
 			break;
-			case "Sixty":
+			case "FiftyNine":
 			GameManager.instance.boxSeven = 60;
 			break;
-			case "SixtyOne":
+			case "Sixty":
 			GameManager.instance.boxSeven = 61;
 			break;
-			case "SixtyTwo":
+			case "SixtyOne":
 			GameManager.instance.boxSeven = 62;
 			break;
-			case "SixtyThree":
+			case "SixtyTwo":
 			GameManager.instance.boxSeven = 63;
 			break;
-			case "SixtyFour":
+			case "SixtyThree":
 			GameManager.instance.boxSeven = 64;
+			break;
+			case "SixtyFour":
+			GameManager.instance.boxSeven = 65;
 		
 			break;
 			case "SixtyFive":
-			GameManager.instance.boxSeven = 65;
+			GameManager.instance.boxSeven = 66;
 			break;
 			case "SixtySix":
-			GameManager.instance.boxSeven = 66;
-			
-			break;
-			case "SixtySeven":
 			GameManager.instance.boxSeven = 67;
 			
 			break;
-			case "SixtyEight":
+			case "SixtySeven":
 			GameManager.instance.boxSeven = 68;
+			
+			break;
+			case "SixtyEight":
+			GameManager.instance.boxSeven = 69;
 			break;
 			case "SixtyNine":
-			GameManager.instance.boxSeven = 69;
+			GameManager.instance.boxSeven = 70;
 	
 			break;
 			case "Seventy":
-			GameManager.instance.boxSeven = 70;
-			break;
-			case "SeventyOne":
 			GameManager.instance.boxSeven = 71;
 			break;
-			case "SeventyTwo":
+			case "SeventyOne":
 			GameManager.instance.boxSeven = 72;
 			break;
-			case "SeventyThree":
+			case "SeventyTwo":
 			GameManager.instance.boxSeven = 73;
 			break;
-			case "SeventyFour":
+			case "SeventyThree":
 			GameManager.instance.boxSeven = 74;
+			break;
+			case "SeventyFour":
+			GameManager.instance.boxSeven = 75;
 			
 			break;
 			case "SeventyFive":
-			GameManager.instance.boxSeven = 75;
-			break;
-			case "SeventySix":
 			GameManager.instance.boxSeven = 76;
 			break;
-			case "SeventySeven":
+			case "SeventySix":
 			GameManager.instance.boxSeven = 77;
 			break;
-			case "SeventyEight":
+			case "SeventySeven":
 			GameManager.instance.boxSeven = 78;
 			break;
-			case "SeventyNine":
+			case "SeventyEight":
 			GameManager.instance.boxSeven = 79;
+			break;
+			case "SeventyNine":
+			GameManager.instance.boxSeven = 80;
 			
 			break;
 			case "Eighty":
-			GameManager.instance.boxSeven = 80;
-			break;
-			case "EightyOne":
 			GameManager.instance.boxSeven = 81;
 			break;
-			case "EightyTwo":
+			case "EightyOne":
 			GameManager.instance.boxSeven = 82;
 			break;
-			case "EightyThree":
+			case "EightyTwo":
 			GameManager.instance.boxSeven = 83;
+			break;
+			case "EightyThree":
+			GameManager.instance.boxSeven = 84;
 			
 			break;
 			case "EightyFour":
-			GameManager.instance.boxSeven = 84;
-			break;
-			case "EightyFive":
 			GameManager.instance.boxSeven = 85;
 			break;
-			case "EightySix":
+			case "EightyFive":
 			GameManager.instance.boxSeven = 86;
 			break;
-			case "EightySeven":
+			case "EightySix":
 			GameManager.instance.boxSeven = 87;
 			break;
-			case "EightyEight":
+			case "EightySeven":
 			GameManager.instance.boxSeven = 88;
 			break;
-			case "EightyNine":
+			case "EightyEight":
 			GameManager.instance.boxSeven = 89;
+			break;
+			case "EightyNine":
+			GameManager.instance.boxSeven = 90;
 			break;
 			case "Ninety":
 			GameManager.instance.boxSeven = 90;

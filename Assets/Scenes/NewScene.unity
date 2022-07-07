@@ -261,7 +261,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 26
+    m_FontSize: 25
     m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 0
@@ -273,7 +273,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'TIP 2: YOU CAN  ALSO BANK ON ANY NUMBER AND IT TURNING AND NUMBER AND
-    IT COUNTERPART IF FOUND....(ONLY SUPERFORECAST GENERATE RANDOM NUMBERS).'
+    IT COUNTERPART IF FOUND....(ONLY SUPER FORECAST GENERATE RANDOM NUMBERS IF THERE
+    IS NO WINING NUMBER DRAWN  ).'
 --- !u!222 &6433133
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4351,7 +4352,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'TIP 1: YOU CAN BANK ON ANY REPEATED NUMBER FOUND IN SUPER, MEGA, HIGHWAY
-    FORECAST OR WITHIN..'
+    FORECAST OR WITHIN...'
 --- !u!222 &270620135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12342,7 +12343,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: oops! No Winning Numbers Drawn From The Combination of The Inserted Numbers..
+  m_Text: oops! No Wining Numbers Drawn From The Combination of The Inserted Numbers..
 --- !u!222 &795713224
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15492,7 +15493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 729, y: 337}
+  m_AnchoredPosition: {x: 773, y: 555}
   m_SizeDelta: {x: 210.859, y: 134.841}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1008004334
